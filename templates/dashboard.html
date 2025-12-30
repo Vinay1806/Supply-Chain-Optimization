@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/orders">Orders</a>
+        <a href="/suppliers">Suppliers</a>
+        <a href="/production">Production</a>        
+    </nav>
+
+    <h1>Dashboard</h1>
+    
+    <div>
+        <p>Inventory Items: {{ inventory_count }}</p>
+        <p>Pending Orders: {{ pending_orders }}</p>
+        <p>Suppliers: {{ suppliers_count }}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/orders">Orders</a>
+        <a href="/suppliers">Suppliers</a>
+        <a href="/production">Production</a>
+    </nav>
+
+    <h1>Current Inventory</h1>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>Item</th>
+            <th>Stock Quantity</th>
+            <th>Price per Unit</th>
+        </tr>
+        {% for i in inventory %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+            <td>{{ i[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

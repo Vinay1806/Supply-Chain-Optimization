@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Production</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/orders">Orders</a>
+        <a href="/suppliers">Suppliers</a>
+        <a href="/production">Production</a>
+    </nav>
+
+    <h1>Production</h1>
+
+    {% for category, msg in get_flashed_messages(with_categories=true) %}
+        <div class="{{ category }}">{{ msg }}</div>
+    {% endfor %}
+
+    <form method="POST">
+        <label>Select Product to Manufacture:</label>
+        <select name="product_id" required>
+            <option value="">-- Choose Product --</option>
+            {% for product in products %}
+                <option value="{{ product.product_id }}">{{ product.product_name }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Quantity:</label>
+            <input type="number" name="product_qty" min="1"required>
+            
+        <button type="submit">Produce</button>
+        <h3>Recent Production</h3>
+        <div>
+            {{history_html | safe}}
+        </div>
+    </form>
+    
+</body>
+</html>

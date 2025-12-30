@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase Orders</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/orders">Orders</a>
+        <a href="/suppliers">Suppliers</a>
+        <a href="/production">Production</a>
+    </nav>
+
+    <h1>Purchase Orders</h1>
+
+    {% for category, msg in get_flashed_messages(with_categories=true) %}
+        <div class="{{ category }}">{{ msg }}</div>
+    {% endfor %}
+    <form action="/create_order" method="POST">
+        <h2>Create Purchase Order</h2>
+
+        <label>Supplier:</label>
+        <select name="supplier_id" required>
+            <option value="">-- Select Supplier --</option>
+            {% for s in all_suppliers %}
+            <option value="{{ s[0] }}">{{ s[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Item:</label>
+        <select name="item_id" required>
+            <option value="">-- Select Item --</option>
+            {% for i in inventory %}
+            <option value="{{ i[0] }}">{{ i[1] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" required>
+
+        <button type="submit">Create Order</button>
+    </form>
+
+    <!-- Orders List -->
+    <h2>Recent Orders</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Supplier</th>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  {% for order in orders %}
+  <tr>
+    <td>{{ order[0] }}</td> <!-- order_id -->
+    <td>{{ order[1] }}</td> <!-- created_at -->
+    <td>{{ order[3] }}</td> <!-- supplier -->
+    <td>{{ order[4] }}</td> <!-- item -->
+    <td>{{ order[5] }}</td> <!-- quantity -->
+    <td>{{ order[2] }}</td> <!-- status -->
+    <td>
+      {% if order[2] == 'pending' %}
+        <a href="/update_order_status/{{ order[0] }}/completed">Complete</a> |
+        <a href="/update_order_status/{{ order[0] }}/cancelled">Cancel</a>
+      {% else %}
+        {{ order[2]|capitalize }}
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+</body>
+</html>
